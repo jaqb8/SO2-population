@@ -2,11 +2,14 @@ from interface import Interface
 from person import Person
 import threading
 import time
+import stats
 
 interface_lock = threading.Lock()
-alive = 1
+alive = 0
 interface = Interface()
 interface.init_interface()
+population = list()
+threads = list()
 
 
 def person_thread(person, person_number):
@@ -48,3 +51,25 @@ def interface_thread():
         interface.end_curses()
 
     time.sleep(.1)
+
+
+def main():
+    for _ in range(stats.STARTING_POPULATION_SIZE):
+        person = Person()
+        person.init_random_person()
+        population.append(person)
+
+    for i in range(stats.STARTING_POPULATION_SIZE):
+        t = threading.Thread(target=person_thread, args=[population[i], i])
+        t.start()
+        threads.append(t)
+
+    interface_t = threading.Thread(target=interface_thread)
+    interface_t.start()
+    interface_t.join()
+
+    for thread in threads:
+        thread.join()
+
+
+main()

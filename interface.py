@@ -52,10 +52,10 @@ class Interface:
 
         if person.gender == 'Male':
             self.stdscr.addstr(
-                id + 2, stats.AGE_LIMIT, f'] Gender: Male, Children: {person.children}, Age: {person.age}')
+                id + 2, stats.AGE_LIMIT, f'] Gender: {person.gender}, Children: {person.children}, Age: {person.age}')
         elif person.gender == 'Female':
             self.stdscr.addstr(
-                id + 2, stats.AGE_LIMIT, f'] Gender: Male, Children: {person.children}, Age: {person.age}')
+                id + 2, stats.AGE_LIMIT, f'] Gender: {person.gender}, Children: {person.children}, Age: {person.age}')
 
         self.stdscr.attron(curses.color_pair(7))
         self.stdscr.addstr(id + 2, person.age - 1, ' ')
@@ -88,12 +88,3 @@ class Interface:
         curses.nocbreak()
         self.stdscr.keypad(False)
         curses.endwin()
-
-
-# p = Person()
-# p.init_random_person()
-# i = Interface()
-# i.init_interface()
-# i.print_info()
-# i.print_person(1, p)
-# i.end_curses()
