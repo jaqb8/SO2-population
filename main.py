@@ -64,16 +64,16 @@ def interface_thread():
 
 
 def main():
-    for _ in range(stats.STARTING_POPULATION_SIZE):
+
+    for i in range(stats.STARTING_POPULATION_SIZE):
         person = Person()
         person.init_random_person()
         population.append(person)
-
-    add_to_population()
-    for i in range(stats.STARTING_POPULATION_SIZE):
         t = threading.Thread(target=person_thread, args=[population[i], i])
         t.start()
         threads.append(t)
+
+    add_to_population()
 
     interface_t = threading.Thread(target=interface_thread)
     interface_t.start()
