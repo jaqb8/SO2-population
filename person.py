@@ -15,7 +15,7 @@ class Person:
         self.children = random.randrange(0, stats.MAX_CHILDREN_FOR_PERSON)
 
     def init_child(self):
-        self.age = 0
+        self.age = 1
         self.children = 0
 
     def increase_age(self):

@@ -50,16 +50,15 @@ class Interface:
         if person.age > person.life_expectancy:
             person.age = person.life_expectancy
 
-        if person.gender == 'Male':
-            self.stdscr.addstr(
-                id + 2, stats.AGE_LIMIT, f'] Gender: {person.gender}, Children: {person.children}, Age: {person.age}')
-        elif person.gender == 'Female':
-            self.stdscr.addstr(
-                id + 2, stats.AGE_LIMIT, f'] Gender: {person.gender}, Children: {person.children}, Age: {person.age}')
+        self.stdscr.addstr(id + 2, stats.AGE_LIMIT,
+                           f'] Gender: {person.gender}, Children: {person.children}, Age: {person.age}')
 
         self.stdscr.attron(curses.color_pair(7))
-        self.stdscr.addstr(id + 2, person.age - 1, ' ')
-        self.stdscr.addstr(id + 2, person.age, '#')
+        if person.age != 1:
+            self.stdscr.addstr(id + 2, person.age - 1, ' ')
+            self.stdscr.addstr(id + 2, person.age, '#')
+        else:
+            self.stdscr.addstr(id + 2, person.age, '#')
 
     def print_person_death(self, id, person):
         if person.life_expectancy == person.age:

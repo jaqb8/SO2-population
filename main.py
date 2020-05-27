@@ -36,6 +36,16 @@ def person_thread(person, person_number):
     time.sleep(.1)
 
 
+def add_to_population():
+    person = Person()
+    person.init_child()
+    population.append(person)
+    t = threading.Thread(target=person_thread, args=[
+                         person, len(population) - 1])
+    t.start()
+    threads.append(t)
+
+
 def interface_thread():
     with interface_lock:
         interface.init_interface()
@@ -59,6 +69,7 @@ def main():
         person.init_random_person()
         population.append(person)
 
+    add_to_population()
     for i in range(stats.STARTING_POPULATION_SIZE):
         t = threading.Thread(target=person_thread, args=[population[i], i])
         t.start()
