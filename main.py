@@ -76,12 +76,7 @@ def population_thread():
                     if population[i].gender != population[j].gender:
                        if population[i].can_have_child & population[j].can_have_child:
                            if random.randint(0, 100) < stats.BIRTH_RATIO_YEARLY:
-                                person = Person()
-                                person.init_random_person()
-                                population.append(person)
-                                t = threading.Thread(target=person_thread, args=[currentPopulationSize + 1, currentPopulationSize + 1])
-                                t.start()
-                                threads.append(t)
+                                add_to_population()
                                 break
                 if random.randint(0, 100) <= stats.ACCIDENT_RATIO:
                     random_kill = random.randint(0, len(population))
