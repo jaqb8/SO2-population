@@ -51,7 +51,7 @@ class Interface:
             person.age = person.life_expectancy
 
         self.stdscr.addstr(id + 2, stats.AGE_LIMIT,
-                           f'] Gender: {person.gender}, Children: {person.children}, Age: {person.age}')
+                           f'] Gender: {person.gender}  , Children: {person.children}, Age: {person.age}')
 
         self.stdscr.attron(curses.color_pair(7))
         if person.age != 1:
