@@ -67,23 +67,25 @@ def interface_thread():
 def population_thread():
     global alive
     while alive > 0:
-        time.sleep(2)
+        time.sleep(1)
         global population
         currentPopulationSize = len(population) - 1
         with population_lock:
             for i in range(0, currentPopulationSize):
                 for j in range(0, currentPopulationSize):
                     if population[i].gender != population[j].gender:
-                       if population[i].can_have_child & population[j].can_have_child:
+                       if population[i].can_have_child and population[j].can_have_child:
                            if random.randint(0, 100) < stats.BIRTH_RATIO_YEARLY:
                                 add_to_population()
+                                population[i].chidren = population[i].chidren + 1
+                                population[j].chidren = population[j].chidren + 1
                                 break
                 if random.randint(0, 100) <= stats.ACCIDENT_RATIO:
                     random_kill = random.randint(0, len(population))
                     population[random_kill].alive = False
                 if alive == 1:
                     alive = 0
-    time.sleep(1)
+    time.sleep(0.1)
 
 def main():
 
@@ -95,14 +97,12 @@ def main():
         t.start()
         threads.append(t)
 
-    add_to_population()
-
     population_t = threading.Thread(target=population_thread)
-    population_t.start()
-    population_t.join()
-
     interface_t = threading.Thread(target=interface_thread)
+    population_t.start()
     interface_t.start()
+
+    population_t.join()
     interface_t.join()
 
     for thread in threads:
