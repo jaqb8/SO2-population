@@ -77,8 +77,8 @@ def population_thread():
                        if population[i].can_have_child and population[j].can_have_child:
                            if random.randint(0, 100) < stats.BIRTH_RATIO_YEARLY:
                                 add_to_population()
-                                population[i].chidren = population[i].chidren + 1
-                                population[j].chidren = population[j].chidren + 1
+                                population[i].chidren = population[i].children + 1
+                                population[j].chidren = population[j].children + 1
                                 break
                 if random.randint(0, 100) <= stats.ACCIDENT_RATIO:
                     random_kill = random.randint(0, len(population))
